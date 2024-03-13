@@ -12,7 +12,9 @@ function App() {
 
   let [logo,setLogo] = useState('ReactBlog');
   let [따봉,따봉변경] = useState(0)
-
+  // [동적인 UI 만드는 step]
+  // step 2. UI의 현재 상태를 state로 저장
+  let [modal, setModal] = useState(false);
   
 
   
@@ -22,23 +24,23 @@ function App() {
         <h4>{logo}</h4>
       </div>
       <div className="list">
-        <h4>{글제목[0]} <span onClick={()=>{따봉변경(따봉++)}}>👍</span> {따봉} </h4>
+        <h4 onClick={()=>{
+          setModal(!modal);
+        }}>
+        {글제목[0]} <span onClick={()=>{따봉변경(따봉++)}}>👍</span> {따봉} </h4>
         <p>2월 17일 발행<span onClick={()=>{
-          let arr = [1,2,3];
-
-          // state가 array/object면 shallow copy를 만들어서 수정해야 함
-          let copy = [...글제목]; // 독립적인 array 사본 생성
-          copy[0] = '여자 코트 추천';
+        
+          let copy = [...글제목]; 
+          copy[0] = '여자 코트 추천'; 
           setTitle(copy);
-          }}> 👗</span></p>
+          }}> 👗</span></p> 
       </div>
-
-
 
       <div className="list">
         <h4>{글제목[1]}</h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> 
+      
       <div className="list">
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
@@ -51,21 +53,27 @@ function App() {
 
       }}>sort</button>
 
-  <Modal></Modal>
+{/* [동적인 UI 만드는 step]
+step 3. state에 따라 UI가 어떻게 보일지 작성
+ */}
+      {
+        modal == true ? <Modal></Modal> : null
+      }
+ 
       
     </div>
   );
 }
 
-// Component 만드는 법
-function Modal(){ // 다른 function 바깥에 만들기 & 영어 대문자 
+// [동적인 UI 만드는 step]
+// step 1. html css로 미리 디자인 완성
+function Modal(){ 
   return (
   <div className='modal'>
   <h4>제목</h4>
   <p>날짜</p>
   <p>상세내용</p>
 </div>
-// return 안에는 하나의 tag만! 병렬 X
   )
 
 }
