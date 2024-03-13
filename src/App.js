@@ -23,7 +23,14 @@ function App() {
       </div>
       <div className="list">
         <h4>{글제목[0]} <span onClick={()=>{따봉변경(따봉++)}}>👍</span> {따봉} </h4>
-        <p>2월 17일 발행<span onClick={()=>{setTitle(['여자 코트 추천', '강남 우동 맛집', '파이썬 독학'])}}> 👗</span></p>
+        <p>2월 17일 발행<span onClick={()=>{
+          let arr = [1,2,3];
+
+          // state가 array/object면 shallow copy를 만들어서 수정해야 함
+          let copy = [...글제목]; // 독립적인 array 사본 생성
+          copy[0] = '여자 코트 추천';
+          setTitle(copy);
+          }}> 👗</span></p>
       </div>
 
 
@@ -36,6 +43,14 @@ function App() {
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
+
+      <button onClick={()=>{
+        let sort_copy = [...글제목];
+        sort_copy.sort();
+        setTitle(sort_copy);
+
+      }}>sort</button>
+
       
 
 
