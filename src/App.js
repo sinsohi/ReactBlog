@@ -1,4 +1,4 @@
-/* eslint-disable */ // -> lint 끄는 기능
+/* eslint-disable */
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
@@ -6,16 +6,16 @@ import {useState} from 'react';
 function App() {
 
   let [글제목,setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
-  // a -> state에 보관했던 자료 나옴
-  // b -> state 변경 도와주는 함수
-  // 변수와 state의 차이 : state 쓰던 html은 자동 재렌더링 됨
+  
 
   let [logo,setLogo] = useState('ReactBlog');
-  let [따봉,따봉변경] = useState(0)
-  // [동적인 UI 만드는 step]
-  // step 2. UI의 현재 상태를 state로 저장
+  let [따봉,따봉변경] = useState([0,0,0])
   let [modal, setModal] = useState(false);
   
+  [1,2,3].map(function(a){ // array 자료 갯수만큼 함수 안의 코드 실행
+    console.log(a) // 함수의 파라미터는 array 안에 있던 자료임
+    return '1234543'// return에 뭐 적으면 array로 담아줌
+})
 
   
   return (
@@ -23,28 +23,31 @@ function App() {
       <div className="black-nav">
         <h4>{logo}</h4>
       </div>
-      <div className="list">
-        <h4 onClick={()=>{
-          setModal(!modal);
-        }}>
-        {글제목[0]} <span onClick={()=>{따봉변경(따봉++)}}>👍</span> {따봉} </h4>
-        <p>2월 17일 발행<span onClick={()=>{
-        
-          let copy = [...글제목]; 
-          copy[0] = '여자 코트 추천'; 
-          setTitle(copy);
-          }}> 👗</span></p> 
-      </div>
 
-      <div className="list">
-        <h4>{글제목[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div> 
-      
-      <div className="list">
-        <h4>{글제목[2]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
+      {
+    글제목.map(function(a,i){
+    return (<div className="list" key={i}>
+    <h4 onClick={()=>{
+      setModal(!modal);
+    }}>
+    {a} <span onClick={()=>{
+        let like_copy = [...따봉];
+        like_copy[i] = like_copy[i] +1;
+        따봉변경(like_copy);
+      }}
+      >👍</span> {따봉[i]} </h4>
+    <p>2월 17일 발행<span onClick={()=>{
+    
+      let copy = [...글제목]; 
+      copy[0] = '여자 코트 추천'; 
+      setTitle(copy);
+      }}> 👗</span></p> 
+  </div>)
+  })
+}
+
+
+
 
       <button onClick={()=>{
         let sort_copy = [...글제목];
@@ -53,20 +56,19 @@ function App() {
 
       }}>sort</button>
 
-{/* [동적인 UI 만드는 step]
-step 3. state에 따라 UI가 어떻게 보일지 작성
- */}
       {
         modal == true ? <Modal></Modal> : null
       }
+
+
  
       
     </div>
   );
 }
 
-// [동적인 UI 만드는 step]
-// step 1. html css로 미리 디자인 완성
+
+
 function Modal(){ 
   return (
   <div className='modal'>
