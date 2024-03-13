@@ -51,12 +51,23 @@ function App() {
 
       }}>sort</button>
 
-      
-
-
+  <Modal></Modal>
       
     </div>
   );
+}
+
+// Component 만드는 법
+function Modal(){ // 다른 function 바깥에 만들기 & 영어 대문자 
+  return (
+  <div className='modal'>
+  <h4>제목</h4>
+  <p>날짜</p>
+  <p>상세내용</p>
+</div>
+// return 안에는 하나의 tag만! 병렬 X
+  )
+
 }
 
 export default App;
