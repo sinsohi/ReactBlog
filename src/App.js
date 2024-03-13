@@ -45,10 +45,7 @@ function App() {
   </div>)
   })
 }
-
-
-
-
+      {/* 글제목 가나다 순으로 정렬 */}
       <button onClick={()=>{
         let sort_copy = [...글제목];
         sort_copy.sort();
@@ -56,8 +53,13 @@ function App() {
 
       }}>sort</button>
 
+
+      {/* 모달 state 상태에 따라 html 변경 */}
       {
-        modal == true ? <Modal></Modal> : null
+        // [부모 -> 자식 state 전송하는 법]
+        // Step 1. <자식 컴포넌트 작명={state이름}>
+        modal == true ? <Modal setTitle={setTitle}  color='skyblue' 글제목={글제목}/> : null
+
       }
 
 
@@ -69,12 +71,19 @@ function App() {
 
 
 
-function Modal(){ 
+function Modal(props){  // Step 2. props 파라미터 등록 후 props.작명 사용
   return (
-  <div className='modal'>
-  <h4>제목</h4>
+  <div className='modal' style={{background : props.color}}>
+  <h4>{props.글제목[0]}</h4>
   <p>날짜</p>
   <p>상세내용</p>
+  <button onClick={
+    ()=>{
+      let title_copy = [...props.글제목];
+      title_copy[0] = '여자 코트 추천';
+      props.setTitle(title_copy);
+    }
+  }>글수정</button>
 </div>
   )
 
