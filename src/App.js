@@ -75,7 +75,7 @@ function App() {
       }}>추가</button>
  
       
-
+      {/* <Modal2></Modal2> */}
 
     
     {/* Modal 창 띄우기 */}
@@ -85,6 +85,8 @@ function App() {
 
     </div>
   );
+
+
 }
 
 
@@ -106,5 +108,26 @@ function Modal(props){
   )
 
 }
+
+
+//class 문법으로 컴포넌트 만들려면
+// class Modal2 extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       name : 'kim',
+//       age : 20
+//     }
+//   }
+//   render(){
+//     return(
+//       <div>안녕 {this.state.name}
+//       <button onClick={()=>{
+//         this.setState({age : 21})
+//       }}></button>
+//       </div>
+//     )
+//   }
+// }
 
 export default App;
