@@ -11,10 +11,11 @@ function App() {
   let [logo,setLogo] = useState('ReactBlog');
   let [따봉,따봉변경] = useState([0,0,0])
   let [modal, setModal] = useState(false);
+  let [title,detailTitle] = useState(0);  // Modal Component에 state를 만들면 굳이 props로 전달하지 않아도 되지만, state가 App에서도 필요할 수도 있으므로 가장 상위인 App Component에 만드는 것이 안전
   
-  [1,2,3].map(function(a){ // array 자료 갯수만큼 함수 안의 코드 실행
-    console.log(a) // 함수의 파라미터는 array 안에 있던 자료임
-    return '1234543'// return에 뭐 적으면 array로 담아줌
+  [1,2,3].map(function(a){ 
+    console.log(a) 
+    return '1234543'
 })
 
   
@@ -29,6 +30,8 @@ function App() {
     return (<div className="list" key={i}>
     <h4 onClick={()=>{
       setModal(!modal);
+      detailTitle(i); // detail title 바꾸기
+
     }}>
     {a} <span onClick={()=>{
         let like_copy = [...따봉];
@@ -58,7 +61,7 @@ function App() {
       {
         // [부모 -> 자식 state 전송하는 법]
         // Step 1. <자식 컴포넌트 작명={state이름}>
-        modal == true ? <Modal setTitle={setTitle}  color='skyblue' 글제목={글제목}/> : null
+        modal == true ? <Modal title={title} setTitle={setTitle}  color='skyblue' 글제목={글제목}/> : null
 
       }
 
@@ -74,7 +77,7 @@ function App() {
 function Modal(props){  // Step 2. props 파라미터 등록 후 props.작명 사용
   return (
   <div className='modal' style={{background : props.color}}>
-  <h4>{props.글제목[0]}</h4>
+  <h4>{props.글제목[props.title]}</h4>
   <p>날짜</p>
   <p>상세내용</p>
   <button onClick={
