@@ -35,7 +35,7 @@ function App() {
 
     }}>
     {a} <span onClick={(e)=>{
-        e.stopPropagation(); // 상위 html로 퍼지는 이벤트 버블링 막기
+        e.stopPropagation();
         let like_copy = [...따봉];
         like_copy[i] = like_copy[i] +1;
         따봉변경(like_copy);
@@ -47,6 +47,11 @@ function App() {
       copy[0] = '여자 코트 추천'; 
       setTitle(copy);
       }}> 👗</span></p> 
+      <button onClick={(e)=>{
+        let copy = [...글제목];
+        copy.splice(i,1);
+        setTitle(copy);
+      }}>삭제</button>
   </div>)
   })
 }
@@ -58,11 +63,18 @@ function App() {
 
       }}>sort</button>
 
-
-      <input onChange={(e)=>{ // <input>에 뭔가 입력 시 코드 실행하고 싶으면 onChange / onInput
-        setContent(e.target.value); // 비동기처리
-        console.log(content);
+      {/* 버튼 누르면 글 추가 */}
+      
+      <input onChange={(e)=>{ 
+        setContent(e.target.value); 
       }}></input>
+      <button onClick={()=>{
+        let copy = [...글제목];
+        copy.unshift(content);
+        setTitle(copy);
+      }}>추가</button>
+ 
+      
 
 
     
@@ -77,7 +89,7 @@ function App() {
 
 
 
-function Modal(props){  // Step 2. props 파라미터 등록 후 props.작명 사용
+function Modal(props){ 
   return (
   <div className='modal' style={{background : props.color}}>
   <h4>{props.글제목[props.title]}</h4>
