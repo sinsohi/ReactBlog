@@ -11,7 +11,8 @@ function App() {
   let [logo,setLogo] = useState('ReactBlog');
   let [따봉,따봉변경] = useState([0,0,0])
   let [modal, setModal] = useState(false);
-  let [title,detailTitle] = useState(0);  // Modal Component에 state를 만들면 굳이 props로 전달하지 않아도 되지만, state가 App에서도 필요할 수도 있으므로 가장 상위인 App Component에 만드는 것이 안전
+  let [title,detailTitle] = useState(0);  
+  let [content, setContent] = useState('');
   
   [1,2,3].map(function(a){ 
     console.log(a) 
@@ -33,7 +34,8 @@ function App() {
       detailTitle(i); // detail title 바꾸기
 
     }}>
-    {a} <span onClick={()=>{
+    {a} <span onClick={(e)=>{
+        e.stopPropagation(); // 상위 html로 퍼지는 이벤트 버블링 막기
         let like_copy = [...따봉];
         like_copy[i] = like_copy[i] +1;
         따봉변경(like_copy);
@@ -57,17 +59,18 @@ function App() {
       }}>sort</button>
 
 
-      {/* 모달 state 상태에 따라 html 변경 */}
-      {
-        // [부모 -> 자식 state 전송하는 법]
-        // Step 1. <자식 컴포넌트 작명={state이름}>
-        modal == true ? <Modal title={title} setTitle={setTitle}  color='skyblue' 글제목={글제목}/> : null
+      <input onChange={(e)=>{ // <input>에 뭔가 입력 시 코드 실행하고 싶으면 onChange / onInput
+        setContent(e.target.value); // 비동기처리
+        console.log(content);
+      }}></input>
 
+
+    
+    {/* Modal 창 띄우기 */}
+      {
+        modal == true ? <Modal title={title} setTitle={setTitle}  color='skyblue' 글제목={글제목}/> : null
       }
 
-
- 
-      
     </div>
   );
 }
