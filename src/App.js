@@ -33,7 +33,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<List shoes = {shoes}></List>}/> 
-        <Route path='/detail' element={<Detail></Detail>}/> 
+        <Route path='/detail/:id' element={<Detail shoes={shoes}></Detail>}/> 
 
         {/* nested routes -> 여러 유사한 페이지 필요할 때 */}
         <Route path='/about' element={<About></About>}>
@@ -45,10 +45,6 @@ function App() {
         <Route path='*' element={<div>없는 페이지요</div>}></Route>
 
     
-  <Route path="/event" element={<EventPage/>}>
-    <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>}></Route>
-    <Route path="two" element={<p>생일기념 쿠폰받기</p>}></Route>
-  </Route>
 
       </Routes>
 
@@ -87,14 +83,6 @@ function About(){
   )
 }
 
-function EventPage(){
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-} 
 
 
 
