@@ -7,6 +7,7 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import Detail from './routes/detail.js'
 import Card from './routes/component.js'
+import axios from 'axios'
 
 
 
@@ -48,7 +49,16 @@ function App() {
 
       </Routes>
 
- 
+      <button onClick={()=>{
+          axios.get('http://codingapple1.github.io/shop/data2.json').then((data)=>{
+            let copy_shoes = [...shoes];
+
+            copy_shoes.push(...data.data);
+            setShoes(copy_shoes);
+            console.log(shoes);
+          })
+          .catch(()=>{console.log('실패함 ㅅㄱ')})
+      }}>더보기</button>
 
 </div>
   )
