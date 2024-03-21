@@ -58,6 +58,7 @@ function App() {
             console.log(shoes);
           })
           .catch(()=>{console.log('실패함 ㅅㄱ')})
+          
       }}>더보기</button>
 
 </div>
