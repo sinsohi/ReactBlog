@@ -15,6 +15,8 @@ function App() {
 
   let [shoes,setShoes] = useState(data)
   let navigate = useNavigate(); // 페이지 이동 도와주는 useNavigate() 함수
+  let [tab, setTab] = useState(0);
+
 
   return (
     <div className="App">
@@ -33,7 +35,7 @@ function App() {
       <br />
 
       <Routes>
-        <Route path='/' element={<List shoes = {shoes}></List>}/> 
+        <Route path='/' element={<List shoes = {shoes} setShoes = {setShoes}></List>}/> 
         <Route path='/detail/:id' element={<Detail shoes={shoes}></Detail>}/> 
 
         {/* nested routes -> 여러 유사한 페이지 필요할 때 */}
@@ -49,17 +51,22 @@ function App() {
 
       </Routes>
 
-      <button onClick={()=>{
-          axios.get('http://codingapple1.github.io/shop/data2.json').then((data)=>{
-            let copy_shoes = [...shoes];
+      <Nav variant="tabs" defaultActiveKey="link0">
+      <Nav.Item>
+        <Nav.Link onClick={()=>{setTab(0)}} eventKey="link0">버튼0</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+      <Nav.Link onClick={()=>{setTab(1)}} eventKey="link1">버튼1</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+      <Nav.Link onClick={()=>{setTab(2)}} eventKey="link2">버튼2</Nav.Link>
+      </Nav.Item>
+    </Nav>
+    <TabContent tab = {tab}></TabContent>
+   
+    
 
-            copy_shoes.push(...data.data);
-            setShoes(copy_shoes);
-            console.log(shoes);
-          })
-          .catch(()=>{console.log('실패함 ㅅㄱ')})
-          
-      }}>더보기</button>
+   
 
 </div>
   )
@@ -81,6 +88,15 @@ function List(props){
   }
 </div>
 </div>
+<button onClick={()=>{
+          axios.get('http://codingapple1.github.io/shop/data2.json').then((data)=>{
+            let copy_shoes = [...props.shoes];
+
+            copy_shoes.push(...data.data);
+            props.setShoes(copy_shoes);
+          })
+          .catch(()=>{console.log('실패함 ㅅㄱ')})
+      }}>더보기</button>
 </>)
 }
 
@@ -94,7 +110,18 @@ function About(){
   )
 }
 
-
-
+function TabContent({tab}){
+  return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]
+  // if (props.tab ==0){
+  //   return <div>내용0</div>
+  // }
+  // else if (props.tab ==1){
+  //   return <div>내용1</div>
+  // }
+  // else if (props.tab ==2){
+  //   return <div>내용2</div>
+  // }
+  
+}
 
 export default App;
